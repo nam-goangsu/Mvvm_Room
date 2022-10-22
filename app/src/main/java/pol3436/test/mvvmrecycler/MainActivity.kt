@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding  = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        setupActionBarWithNavController(findNavController(R.id.fragment))//actionbar
+       // setupActionBarWithNavController(findNavController(R.id.fragment))//actionbar
     }
 
     override fun onSupportNavigateUp(): Boolean {

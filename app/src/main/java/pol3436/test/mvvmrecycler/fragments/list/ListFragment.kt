@@ -22,9 +22,12 @@ class ListFragment : Fragment() {
     private var TAG = "test  "
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding
+
     private lateinit var recyclerView: RecyclerView
     val adapter = ListAdapter()
+
     private lateinit var mUserViewModel: UserViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,9 +44,12 @@ class ListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
         mUserViewModel.readAllData.observe(
             viewLifecycleOwner,
             Observer { user -> adapter.setData(user) })
+
+
 
         binding!!.floatingActionButton!!.setOnClickListener {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
