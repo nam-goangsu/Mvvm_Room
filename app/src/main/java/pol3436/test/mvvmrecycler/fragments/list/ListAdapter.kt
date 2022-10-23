@@ -18,10 +18,10 @@ import pol3436.test.mvvmrecycler.model.User
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     private var userList = arrayListOf<User>()
-    private var checkboxList = SparseBooleanArray()
+
     private val TAG ="TEST"
     companion object {
-
+        private var checkboxList = SparseBooleanArray()
 
     }
 
@@ -46,7 +46,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         //UI와 전달받은 userList에 데이터베이스 데이터를 연결해줍니다.
         val currentItem = userList[position]
 
-        holder.itemView.id_txt.text = currentItem.id.toString()
+        holder.itemView.id_txt.text = (position+1).toString()
         holder.itemView.id_txt.isChecked = checkboxList[position]
         Log.d(TAG, "CLicked : "+ checkboxList[position] )
 
