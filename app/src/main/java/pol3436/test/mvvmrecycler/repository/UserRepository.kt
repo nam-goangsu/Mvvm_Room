@@ -17,6 +17,9 @@ class UserRepository(private val userDao: UserDao) {
     fun deleteUser(user:User) { //
         userDao.deleteUser(user)
     }
+    fun selectData(user: Int){
+        userDao.selectData(user)
+    }
 
     fun deleteAllUsers() { //deleteAllUser을 실행합니다.
         userDao.deleteAllUsers()

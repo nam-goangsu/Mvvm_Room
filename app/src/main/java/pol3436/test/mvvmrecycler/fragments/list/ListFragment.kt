@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pol3436.test.mvvmrecycler.R
 import pol3436.test.mvvmrecycler.databinding.FragmentListBinding
+import pol3436.test.mvvmrecycler.fragments.list.ListAdapter.Companion.checkboxList
 import pol3436.test.mvvmrecycler.viewmodel.UserViewModel
 
 
@@ -70,22 +71,49 @@ class ListFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+    var checklistbox = pol3436.test.mvvmrecycler.fragments.list.ListAdapter
     private fun deleteAllUsers() { //deleteUser를 만들어줬을때와 같이 dialog를 만들겠습니다.
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yse") { _, _ ->
-            mUserViewModel.deleteAllUsers()
-            Toast.makeText(
-                requireContext(), "Suscessfully removed everything ",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-        builder.setNegativeButton("No") { _, _ ->
-        }
+        if(checklistbox.checkboxList.size()!=0){
 
-        builder.setTitle("Delete delete everything?")
-        builder.setMessage("Are you sure to delete everything?")
-        builder.create().show()
+            builder.setPositiveButton("Yes") { _, _ ->
+                //while문으로 리스트대로 삭제 진행
+                var a = 0
+                while (a != checklistbox.checkboxList.size()) {
+                     //Log.d(TAG, ""+checklistbox.checkboxList.keyAt(a).toString())
+                    mUserViewModel.selectdelete(checklistbox.userList[ checklistbox.checkboxList.keyAt(a)].id)
+                   // checklistbox.checkboxList.delete(a)
+                    a++
+                }
+                checklistbox.checkboxList.clear()
+                Toast.makeText(
+                    requireContext(), "Suscessfully removed select list ",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+            builder.setNegativeButton("No") { _, _ ->
+            }
+
+            builder.setTitle("Delete delete select list?")
+            builder.setMessage("Are you sure to delete select list?")
+            builder.create().show()
+        }
+        else {
+            builder.setPositiveButton("Yse") { _, _ ->
+                mUserViewModel.deleteAllUsers()
+                Toast.makeText(
+                    requireContext(), "Suscessfully removed everything ",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            builder.setNegativeButton("No") { _, _ ->
+            }
+
+            builder.setTitle("Delete delete everything?")
+            builder.setMessage("Are you sure to delete everything?")
+            builder.create().show()
+        }
     }
 
     //추가 끝

@@ -22,6 +22,9 @@ interface UserDao {
     @Delete
      fun deleteUser(user:User)
 
+   @Query("DELETE FROM user_table WHERE id =:id")
+    fun selectData(id : Int): Int
+
     //모두지웁니다.
     @Query("DELETE FROM user_table")
      fun deleteAllUsers()
