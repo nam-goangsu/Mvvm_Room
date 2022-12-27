@@ -6,6 +6,7 @@ import pol3436.test.mvvmrecycler.model.User
 
 class UserRepository(private val userDao: UserDao) {
     val readAllData: LiveData<List<User>> = userDao.readAllData()
+    val spinnerData: LiveData<List<String>> = userDao.spinnerData()
 
     suspend fun addUser(user: User){ //suspend를 붙여준 이유는 coroutine을 사용하기 위함입니다.
         userDao.addUser(user) //DAO에서 만들었던 adduser을 실행합니다.
@@ -16,6 +17,9 @@ class UserRepository(private val userDao: UserDao) {
 
     fun deleteUser(user:User) { //
         userDao.deleteUser(user)
+    }
+    fun selectData(user: Int){
+        userDao.selectData(user)
     }
 
     fun deleteAllUsers() { //deleteAllUser을 실행합니다.

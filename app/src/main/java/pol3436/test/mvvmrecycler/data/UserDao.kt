@@ -18,9 +18,15 @@ interface UserDao {
     @Query("SELECT * FROM user_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<User>>
 
+    @Query("SELECT firstName FROM user_table ORDER BY id ASC")
+    fun spinnerData(): LiveData<List<String>>
+
     //선택한 User를 지웁니다.
     @Delete
      fun deleteUser(user:User)
+
+   @Query("DELETE FROM user_table WHERE id =:id")
+    fun selectData(id : Int): Int
 
     //모두지웁니다.
     @Query("DELETE FROM user_table")

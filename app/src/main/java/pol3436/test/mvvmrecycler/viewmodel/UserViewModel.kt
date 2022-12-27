@@ -13,12 +13,15 @@ import pol3436.test.mvvmrecycler.repository.UserRepository
 class UserViewModel (application: Application): AndroidViewModel(application) {
 
      val readAllData: LiveData<List<User>>
+     val spinnerData : LiveData<List<String>>
+
     private val repository: UserRepository
 
     init {
         val userDao = UserDatabase.getDatabase(application).userDao()
         repository = UserRepository(userDao) //이니셜라이즈 해줍니다.
         readAllData = repository.readAllData // readAlldata는 repository에서 만들어줬던 livedata입니다.
+        spinnerData = repository.spinnerData
     }
 
     fun addUser(user: User){// 파라미터에 만든 데이터클래스가 들어갑니다.
@@ -34,6 +37,12 @@ class UserViewModel (application: Application): AndroidViewModel(application) {
     fun deleteUser(user:User){
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteUser(user)
+        }
+    }
+
+    fun selectdelete(id:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.selectData(id)
         }
     }
 

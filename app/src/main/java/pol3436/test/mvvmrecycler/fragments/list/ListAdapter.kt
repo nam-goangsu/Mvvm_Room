@@ -17,12 +17,12 @@ import pol3436.test.mvvmrecycler.model.User
 
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
-    private var userList = arrayListOf<User>()
+
 
     private val TAG ="TEST"
     companion object {
-        private var checkboxList = SparseBooleanArray()
-
+        public var checkboxList = SparseBooleanArray()
+        public var userList = arrayListOf<User>()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,10 +57,14 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.id_txt.setOnClickListener {
             Log.d(TAG, "CLick" )
             if(!holder.itemView.id_txt.isChecked){
-                Log.d(TAG, "CLick false "+position )
-                checkboxList.put(position,false)
+                Log.d(TAG, "CLick list " + checkboxList.toString()+ " / " + userList.toString())
+                checkboxList.delete(position)
+                //checkboxList.put(position,false)
             }
-            else{checkboxList.put(position,true)
+            else{
+
+                checkboxList.put(position,true)
+
                 Log.d(TAG, "CLick true "+position  )
             }
             notifyItemChanged(position)
@@ -74,9 +78,11 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     fun setData(user: List<User>) {
         //유저리스트가 변경 되었을때, 업데이트해줍니다.
-        this.userList = user as ArrayList<User>
+        userList = user as ArrayList<User>
         notifyDataSetChanged()
     }
+
+
 }
 /*
 
